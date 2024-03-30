@@ -1,0 +1,7 @@
+@mixin position($x, $y) {
+  position: absolute;
+  top: $x;
+  left: $y;
+  transform: translate(-$y, -$x);
+  z-index: 1000;
+}

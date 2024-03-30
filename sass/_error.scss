@@ -1,0 +1,18 @@
+.error {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  background-color: rgb(234, 13, 13);
+  color: white;
+  width: 30rem;
+  min-height: 6rem;
+  font-size: 1.8rem;
+  position: fixed;
+  right: 3rem;
+  top: 85vh;
+  z-index: 1000;
+  &--icon {
+    width: 2rem;
+  }
+}

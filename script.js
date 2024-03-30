@@ -1,12 +1,14 @@
 const btn = document.querySelector('.search--nav');
 const inputSearch = document.querySelector('.search');
-const tabContainer = document.querySelector('.tab');
+const tabContainer = document.querySelector('.tab--container');
 const errContainer = document.querySelector('.err--container');
+const loader = document.querySelector('.loader');
 
 let lat, lng;
 
 const html = function (data) {
   const htmlContent = `
+  <div class="tab">
     <div class="tab--col">
     <p>ip address</p>
     <h1 class="heading__secondary ip-address">${data.ip}</h1>
@@ -23,13 +25,21 @@ const html = function (data) {
     <p>ISP</p>
     <h1 class="heading__secondary isp">${data.isp}</h1>
   </div>
+  </div>
     `;
 
   tabContainer.insertAdjacentHTML('afterbegin', htmlContent);
 };
 
+const showLoader = function () {
+  loader.classList.remove('hidden');
+};
+
+const hideLoader = function () {
+  loader.classList.add('hidden');
+};
+
 const renderError = function (msg) {
-  // errContainer.innerHTML = ' ';
   errContainer.classList.remove('hidden');
   let errHtml;
   errHtml = `<div class="error">
@@ -47,87 +57,36 @@ const renderError = function (msg) {
 inputSearch.value = '';
 const getIpAddress = async function (ipAddress) {
   try {
+    showLoader();
     //prettier-ignore
-    const res = await fetch(`https://geo.ipify.org/api/v2/country?apiKey=at_cKnccJRUQPNjlT30AzwmVsc0fGhXC&ipAddress=${ipAddress}`);
+    const res = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_cKnccJRUQPNjlT30AzwmVsc0fGhXC&domain=${ipAddress}`);
     if (!res.ok) throw new Error(`problem getting IP Address`);
     console.log(res);
     const data = await res.json();
+    hideLoader();
     console.log(data);
-    getCountry(data.location.country, data.location.region);
+    lat = data.location.lat;
+    lng = data.location.lng;
+    console.log(lat, lng);
+    latlng(lat, lng);
     html(data);
   } catch (err) {
     console.error(`${err} 💥`);
-    // renderError(err.message)
+    renderError(err.message);
   }
 };
 
 getIpAddress(inputSearch.value);
 
-const getIPByDomain = async function (domain) {
-  try {
-    const resDom = await fetch(
-      `https://api.ipify.org?format=json&domain=${domain}&apiKey=at_cKnccJRUQPNjlT30AzwmVsc0fGhX`
-    );
-    if (!resDom.ok) throw new Error(`problem getting IP Address`);
-    console.log(resDom);
-    const dataDom = await resDom.json();
-    console.log(dataDom.ip);
-    const ipAddress = dataDom.ip;
-    return getIpAddress(ipAddress);
-  } catch (err) {
-    console.error(`${err} 💥`);
-  }
-};
-
 btn.addEventListener('click', function () {
-  // const dd = getIPByDomain(inputSearch.value);
-  // console.log(dd);
   tabContainer.innerHTML = '';
   console.log(inputSearch.value);
-  if (inputSearch.value.endsWith('com')) {
-    const domain = inputSearch.value; // Replace with the domain you want to check
-    getIPByDomain(domain)
-      .then(info => {
-        console.log('Information from Domain:', info);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  } else {
-    getIpAddress(inputSearch.value);
-  }
-  // inputSearch.value = ''
-  console.log(inputSearch.value.endsWith('com'));
+  getIpAddress(inputSearch.value);
+  inputSearch.value = '';
 });
 
-const getCountry = async function (code, cityName) {
-  try {
-    //prettier-ignore
-    const res = await fetch(`https://restcountries.com/v3.1/alpha?codes=${code}`);
-    if (!res.ok) throw new Error(`problem getting Country data`);
-    const [data] = await res.json();
-    console.log(data);
-
-    const countryName = data.name.common;
-
-    const resGeo = await fetch(
-      `https://nominatim.openstreetmap.org/search?state=${cityName}&country=${countryName}&format=json`
-    );
-    if (!resGeo.ok) throw new Error(`problem getting data on the State`);
-    const [dataGeo] = await resGeo.json();
-    console.log(dataGeo);
-    lat = dataGeo.lat;
-    lng = dataGeo.lon;
-    console.log(lat, lng);
-    latlng(lat, lng);
-  } catch (err) {
-    console.error(`${err} 💥`);
-    // renderError(err.message)
-  }
-};
-
 let map;
-
+document.getElementById('map').style.backgroundColor = 'rgb(218, 214, 214)';
 const latlng = function (lat, lng) {
   // Check if the map is already initialized
   if (!map) {

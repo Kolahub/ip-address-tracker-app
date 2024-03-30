@@ -1,0 +1,11 @@
+#map {
+  height: calc(100vh - 250px);
+  @media only screen and (max-width: $bp-small) {
+    height: 100vh;
+  }
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+  display: none;
+}

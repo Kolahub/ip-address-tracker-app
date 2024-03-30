@@ -1,0 +1,21 @@
+.header {
+  height: 250px;
+  background-image: url(../images/pattern-bg-desktop.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @media only screen and (max-width: $bp-small) {
+    background-image: url(../images/pattern-bg-mobile.png);
+  }
+
+  &__form {
+    display: flex;
+    max-width: 48rem;
+    margin: 0 auto;
+    margin-top: 3rem;
+    height: 50px;
+    @media only screen and (max-width: $bp-small) {
+      width: calc(100% - 4rem);
+    }
+  }
+}

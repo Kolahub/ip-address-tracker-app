@@ -1,25 +1,23 @@
 .tab {
   display: flex;
   align-items: center;
-  height: 15rem;
+  min-height: 15rem;
   background-color: rgb(255, 255, 255);
   border-radius: 1.5rem;
-  position: absolute;
-  top: 33%;
-  left: 50%;
-  transform: translate(-50%, -33%);
-  z-index: 1000;
+  @include position(32%, 50%);
+
   &--col {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 20rem;
-    // flex-grow: 1;
+    width: 28rem;
     min-height: 8rem;
     padding: 0 4rem;
+
     h1 {
       margin: 0;
     }
+
     p {
       font-size: 1.3rem;
       font-weight: 500;
@@ -28,8 +26,33 @@
       margin-top: 0;
       margin-bottom: 5px;
     }
+
     &:not(:last-child) {
       border-right: 2px solid rgb(225, 225, 225);
     }
+
+    @media only screen and (max-width: $bp-l) {
+      width: 100%;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    @media only screen and (max-width: $bp-small) {
+      align-items: center;
+      width: 80%;
+      &:not(:last-child) {
+        border-right: none;
+      }
+    }
+  }
+
+  @media only screen and (max-width: $bp-large) {
+    width: calc(100% - 2rem);
+  }
+  @media only screen and (max-width: $bp-small) {
+    flex-direction: column;
+    width: calc(100% - 4rem);
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    @include position(23%, 50%);
   }
 }
