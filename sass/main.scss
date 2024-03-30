@@ -1,0 +1,87 @@
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em;   // 1200px
+$bp-large: 62.5em;   // 1000px
+$bp-medium: 50em;    // 800px;
+$bp-small: 37.5em;    // 600px;
+
+@import "typography";
+@import "tab";
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.app {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.header {
+    height: 250px;
+    background-image: url(../images/pattern-bg-desktop.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &__form {
+        display: flex;
+        max-width: 48rem;
+        margin: 0 auto;
+        height: 50px;
+    }
+}
+
+.search {
+   width: 100%;
+   font-size: 1.7rem;
+   padding: 0 1.6rem;
+   border: none;
+   border-radius: 1.2rem 0 0 1.2rem;
+   font-size: 18px;
+
+   &:focus {
+    outline: none;
+}
+
+   &--nav {
+    position: relative;
+    width: 6rem;
+    background-color: black;
+    border-radius: 0 1.2rem 1.2rem 0;
+   }
+
+   &--icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.5rem;
+   }
+}
+
+#map { 
+    height: calc(100vh - 250px);
+}
+
+.error {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    background-color: rgb(234, 13, 13);
+    color: white;
+    width: 30rem;
+    min-height: 6rem;
+    font-size: 1.8rem;
+    position: fixed;
+    right: 3rem;
+    top: 85vh;
+    z-index: 1000;
+    &--icon {
+        width: 2rem;
+    }
+}
+
+.hidden {
+    display: none;
+}
