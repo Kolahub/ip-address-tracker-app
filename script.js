@@ -51,7 +51,7 @@ const renderError = function (msg) {
   setTimeout(function () {
     errContainer.classList.add('hidden');
     getIpAddress(inputSearch.value);
-  }, 6000);
+  }, 3000);
 };
 
 inputSearch.value = '';
@@ -59,7 +59,7 @@ const getIpAddress = async function (ipAddress) {
   try {
     showLoader();
     //prettier-ignore
-    const res = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_cKnccJRUQPNjlT30AzwmVsc0fGhXC&domain=${ipAddress}`);
+    const res = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_MFvG7e8L3IdZZOIrq35GhcPiBkknG&domain=${ipAddress}`);
     if (!res.ok) throw new Error(`problem getting IP Address`);
     console.log(res);
     const data = await res.json();

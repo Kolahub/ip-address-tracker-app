@@ -10,7 +10,7 @@
     #000;
   background-repeat: no-repeat;
   animation: l3 2s infinite linear;
-  @include position(35%, 47.5%);
+  @include position(34%, 47.5%);
   transform: scale(3);
 
   @media only screen and (max-width: $bp-small) {

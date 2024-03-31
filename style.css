@@ -183,9 +183,9 @@ body {
   background-repeat: no-repeat;
   animation: l3 2s infinite linear;
   position: absolute;
-  top: 35%;
+  top: 34%;
   left: 47.5%;
-  transform: translate(-47.5%, -35%);
+  transform: translate(-47.5%, -34%);
   z-index: 1000;
   transform: scale(3); }
   @media only screen and (max-width: 37.5em) {
